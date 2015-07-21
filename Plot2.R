@@ -1,11 +1,10 @@
 if(!exists("NEI"))
         NEI <- readRDS("summarySCC_PM25.rds")
 
-if(!exists("plot2Data"))
-        plot2Data <- aggregate(
-                NEI[NEI$fips=="24510",]$Emissions, 
-                by=list(year=NEI[NEI$fips=="24510",]$year), 
-                FUN=sum)
+plot2Data <- aggregate(
+        NEI[NEI$fips=="24510",]$Emissions, 
+        by=list(year=NEI[NEI$fips=="24510",]$year), 
+        FUN=sum)
 
 barplot(
         plot2Data$x, 
