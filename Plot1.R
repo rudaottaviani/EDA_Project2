@@ -1,9 +1,20 @@
 if(!exists("NEI"))
         NEI <- readRDS("summarySCC_PM25.rds")
 
-pData <- aggregate(NEI$Emissions, by=list(year=NEI$year), FUN=sum)
+if(!exists("plot1Data"))
+        plot1Data <- aggregate(
+                NEI$Emissions, 
+                by=list(year=NEI$year), 
+                FUN=function(x){ sum(x) / 1000000 })
 
 barplot(
-        pData$x, 
-        names.arg=pData$year, 
-        ylim=c(0, max(pData$x) + 0.4 * max(pData$x)))
+        plot1Data$x, 
+        names.arg=plot1Data$year, 
+        xlab="Year",
+        ylab="PM2.5 (millon of tons)",
+        ylim=c(0, max(plot1Data$x) + 0.2 * max(plot1Data$x)))
+
+legend("topright", 
+       pch=15, 
+       col="darkgray", 
+       legend="PM2.5 emitted, in million of tons")
